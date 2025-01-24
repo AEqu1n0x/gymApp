@@ -7,6 +7,7 @@ type Props = {
   setSelectedPage: (value: SelectedPage) => void;
 };
 
+// универсальная кнопка
 const ActionButton = ({ children, setSelectedPage }: Props) => {
   return (
     <AnchorLink

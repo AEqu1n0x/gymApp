@@ -8,4 +8,7 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
+  server: {
+    allowedHosts: ["sx3f3s-5173.csb.app"], // Добавляем хост в список разрешенных
+  },
 });

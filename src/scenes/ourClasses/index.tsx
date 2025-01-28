@@ -84,7 +84,7 @@ const OurClasses = ({ setSelectedPage }: Props) => {
           className="mx-auto w-5/6"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.8 }}
           variants={{
             hidden: { opacity: 0, x: -100 },
@@ -103,7 +103,7 @@ const OurClasses = ({ setSelectedPage }: Props) => {
         </motion.div>
         <div
           ref={containerRef}
-          className="mt-10 h-[353px] w-full overflow-x-auto overflow-y-hidden"
+          className="mt-10 h-[370px] w-full overflow-x-auto overflow-y-hidden"
         >
           <ul className="w-[2800px] whitespace-nowrap">
             {classes.map((item: ClassType, index) => (

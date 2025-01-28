@@ -53,7 +53,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.8 }}
           variants={{
             hidden: { opacity: 0, x: -100 },
@@ -72,7 +72,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.3 }}
           variants={container}
           className="mt-5 items-center justify-between gap-8 md:flex"
         >
@@ -103,7 +103,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
+                  viewport={{ once: false, amount: 0.5 }}
                   transition={{ duration: 0.8 }}
                   variants={{
                     hidden: { opacity: 0, x: 100 },
@@ -123,7 +123,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
+                viewport={{ once: false, amount: 0.5 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
                 variants={{
                   hidden: { opacity: 0, x: 100 },

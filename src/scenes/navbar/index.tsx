@@ -5,6 +5,7 @@ import Link from "@/scenes/navbar/Link";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ActionButton from "@/shared/ActionButton";
+import Modal from "@/modal";
 
 type Props = {
   isTopOfPage: boolean;
@@ -14,7 +15,7 @@ type Props = {
 
 const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
   const flexBetween = "flex items-center justify-between";
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // касотмный хук для отслеживания изменений ширины окна
   const isAboveMediumScreens = useMediaQuery("(min-width: 1000px)");
 
@@ -76,7 +77,9 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                   />
                 </div>
                 <div className={`${flexBetween} gap-8`}>
-                  <p>Sign In</p>
+                  <button onClick={() => setIsModalOpen(true)}>
+                    <p>Sign In</p>
+                  </button>
                   <ActionButton setSelectedPage={setSelectedPage}>
                     Become a member
                   </ActionButton>
@@ -95,6 +98,24 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           </div>
         </div>
       </div>
+
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="gap-8 bg-primary-300 p-10 text-center">
+          <h2 className="mb-5 text-gray-500">Hi, friend!</h2>
+          <p className="mb-5 text-gray-500">
+            It's just a single page application. Sponsor me. I want to get a
+            job. tg: @alexequinox
+          </p>
+          <button
+            className="rounded-xl bg-secondary-500 px-2 py-3 text-center text-gray-500 hover:bg-primary-500"
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+          >
+            Закрыть
+          </button>
+        </div>
+      </Modal>
 
       {/* Мобильное меню  */}
 

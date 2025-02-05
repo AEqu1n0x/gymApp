@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class", // добавление поддержки темной темы
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
+        // светлые цвета
         "gray-20": "#F8F4EB",
         "gray-50": "#EFE6E6",
         "gray-100": "#DFCCCC",
@@ -13,6 +15,18 @@ module.exports = {
         "primary-500": "#FF6B66",
         "secondary-400": "#FFCD5B",
         "secondary-500": "#FFC132",
+
+        // цвета для темной темы
+        "darkGray-20": "#0f0f0f",
+        "darkGray-50": "#2D2D2D",
+        "darkGray-100": "#404040",
+        "darkGray-500": "#E5E5E5",
+        "darkPrimary-100": "#3d2424",
+        "darkPrimary-300": "#5C1A1A",
+        "darkPrimary-500": "#FF6B66",
+        "darkSecondary-400": "#FFD700",
+        "darkSecondary-500": "#FFB300",
+        "darkSecondary-hover": "#CC0000",
       },
       backgroundImage: (theme) => ({
         "gradient-yellowred":

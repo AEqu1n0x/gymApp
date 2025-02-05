@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Logo from "@/assets/Logo.png";
+import LogoDark from "@/assets/LogoDark.png";
 import Link from "@/scenes/navbar/Link";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ActionButton from "@/shared/ActionButton";
 import Modal from "@/modal";
+import ThemeToggle from "@/shared/ThemeToggle";
+import LanguageSwitcher from "@/shared/LanguageSwitch";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Props = {
   isTopOfPage: boolean;
@@ -14,16 +18,19 @@ type Props = {
 };
 
 const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+  const { translate } = useTranslation();
   const flexBetween = "flex items-center justify-between";
   const [isModalOpen, setIsModalOpen] = useState(false);
   // касотмный хук для отслеживания изменений ширины окна
-  const isAboveMediumScreens = useMediaQuery("(min-width: 1000px)");
+  const isAboveMediumScreens = useMediaQuery("(min-width: 1100px)");
 
   // нажата ли кнопка меню
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
 
   // фон навигации при прокрутке страницы
-  const navbarBG = isTopOfPage ? "" : "bg-primary-100 drop-shadow";
+  const navbarBG = isTopOfPage
+    ? ""
+    : "bg-primary-100 dark:bg-darkGray-100 drop-shadow";
 
   // Закрытие окна мобильного меню при нажатии за границы этого меню
   useEffect(() => {
@@ -49,40 +56,46 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         <div className={`${flexBetween} mx-auto w-5/6`}>
           <div className={`${flexBetween} w-full gap-16`}>
             {/* Левая часть меню */}
-            <img alt="logo" src={Logo} />
+
+            <img src={Logo} alt="logo" className="block dark:hidden" />
+            <img src={LogoDark} alt="logo" className="hidden dark:block" />
 
             {/* Правая часть меню*/}
             {isAboveMediumScreens ? (
               <div className={`${flexBetween} w-full`}>
                 <div className={`${flexBetween} gap-8 text-sm`}>
                   <Link
-                    page="Home"
+                    page="home"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
                   />
                   <Link
-                    page="Benefits"
+                    page="benefits"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
                   />
                   <Link
-                    page="Our Classes"
+                    page="ourClasses"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
                   />
                   <Link
-                    page="Contact Us"
+                    page="contactUs"
                     selectedPage={selectedPage}
                     setSelectedPage={setSelectedPage}
                   />
                 </div>
                 <div className={`${flexBetween} gap-8`}>
                   <button onClick={() => setIsModalOpen(true)}>
-                    <p>Sign In</p>
+                    <p>{translate("signIn")}</p>
                   </button>
                   <ActionButton setSelectedPage={setSelectedPage}>
-                    Become a member
+                    {translate("becomeMember")}
                   </ActionButton>
+                </div>
+                <div className="flex gap-4">
+                  <ThemeToggle />
+                  <LanguageSwitcher />
                 </div>
               </div>
             ) : (
@@ -101,18 +114,15 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="gap-8 bg-primary-300 p-10 text-center">
-          <h2 className="mb-5 text-gray-500">Hi, friend!</h2>
-          <p className="mb-5 text-gray-500">
-            It's just a single page application. Sponsor me. I want to get a
-            job. tg: @alexequinox
-          </p>
+          <h2 className="mb-5 text-gray-500">{translate("hi")}</h2>
+          <p className="mb-5 text-gray-500">{translate("tg")}</p>
           <button
             className="rounded-xl bg-secondary-500 px-2 py-3 text-center text-gray-500 hover:bg-primary-500"
             onClick={() => {
               setIsModalOpen(false);
             }}
           >
-            Закрыть
+            {translate("close")}
           </button>
         </div>
       </Modal>
@@ -122,7 +132,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
       {!isAboveMediumScreens && (
         <div
           id="mobile-menu"
-          className={`fixed bottom-0 right-0 z-40 h-full w-[300px] transform rounded-3xl bg-primary-100 drop-shadow-2xl transition-transform duration-500 ease-in-out ${
+          className={`dark:bg-darkGray-100 fixed bottom-0 right-0 z-40 h-full w-[300px] transform rounded-3xl bg-primary-100 drop-shadow-2xl transition-transform duration-500 ease-in-out ${
             isMenuToggled ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -140,25 +150,29 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
           {/* Ссылки на страницы в мобильном меню  */}
           <div className={`ml-[33%] flex flex-col gap-10 text-xl`}>
             <Link
-              page="Home"
+              page="home"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
             <Link
-              page="Benefits"
+              page="benefits"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
             <Link
-              page="Our Classes"
+              page="ourClasses"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
             <Link
-              page="Contact Us"
+              page="contactUs"
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
+          </div>
+          <div className="ml-[33%] pt-7">
+            <ThemeToggle />
+            <LanguageSwitcher />
           </div>
         </div>
       )}

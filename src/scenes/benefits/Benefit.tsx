@@ -1,6 +1,7 @@
 import { SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const childVariant = {
   hidden: { opacity: 0, scale: 0.1 },
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const Benefit = ({ icon, title, description, setSelectedPage }: Props) => {
+  const { translate } = useTranslation();
   return (
     <motion.div
 
@@ -34,7 +36,7 @@ const Benefit = ({ icon, title, description, setSelectedPage }: Props) => {
         }}
         href={`#${SelectedPage.ContactUs}`}
       >
-        <p>Learn more</p>
+        <p>{translate("learnMore")}</p>
       </AnchorLink>
     </motion.div>
   );

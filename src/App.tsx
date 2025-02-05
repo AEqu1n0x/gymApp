@@ -7,6 +7,7 @@ import OurClasses from "./scenes/ourClasses";
 import ContactUs from "./scenes/contactUs";
 import Footer from "./scenes/footer";
 
+
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
     SelectedPage.Home,
@@ -20,7 +21,7 @@ function App() {
         setIsTopOfPage(true);
         setSelectedPage(SelectedPage.Home);
       }
-      if (window.scrollY !== 0) {
+      if (window.scrollY > 0) {
         setIsTopOfPage(false);
       }
     };

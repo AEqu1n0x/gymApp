@@ -9,38 +9,37 @@ import image6 from "@/assets/image6.png";
 import HText from "@/shared/HText";
 import Class from "./Class";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const classes: Array<ClassType> = [
   {
-    name: "Weight Training Classes",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    name: "ourClassesName1",
+    description: "ourClassesDescription1",
     image: image1,
   },
   {
-    name: "Yoga Classes",
+    name: "ourClassesName2",
+    description: "ourClassesDescription2",
     image: image2,
   },
   {
-    name: "Ab Core Classes",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    name: "ourClassesName3",
+    description: "ourClassesDescription3",
     image: image3,
   },
   {
-    name: "Adventure Classes",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    name: "ourClassesName4",
+    description: "ourClassesDescription4",
     image: image4,
   },
   {
-    name: "Fitness Classes",
+    name: "ourClassesName5",
+    description: "ourClassesDescription5",
     image: image5,
   },
   {
-    name: "Training Classes",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    name: "ourClassesName6",
+    description: "ourClassesDescription6",
     image: image6,
   },
 ];
@@ -50,22 +49,29 @@ type Props = {
 };
 
 const OurClasses = ({ setSelectedPage }: Props) => {
+  const { translate } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
 
     const handleWheel = (e: WheelEvent) => {
-      if (container && e.deltaY !== 0) {
-        container.scrollLeft += e.deltaY;
-        e.preventDefault(); // Блокируем стандартный вертикальный скролл
+      if (container) {
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        const isAtStart = scrollLeft === 0;
+        const isAtEnd = scrollLeft + clientWidth >= scrollWidth;
+        const canScroll = scrollWidth > clientWidth;
+        if (canScroll) {
+          container.scrollLeft += e.deltaY;
+          if (!(isAtStart && e.deltaY < 0) && !(isAtEnd && e.deltaY > 0)) {
+            e.preventDefault();
+          }
+        }
       }
     };
-
     if (container) {
       container.addEventListener("wheel", handleWheel, { passive: false });
     }
-
     return () => {
       if (container) {
         container.removeEventListener("wheel", handleWheel);
@@ -74,7 +80,10 @@ const OurClasses = ({ setSelectedPage }: Props) => {
   }, []);
 
   return (
-    <section id="ourclasses" className="w-full bg-primary-100 py-40">
+    <section
+      id="ourclasses"
+      className="dark:bg-darkPrimary-100 w-full bg-primary-100 py-40"
+    >
       <motion.div
         onViewportEnter={() => {
           setSelectedPage(SelectedPage.OurClasses);
@@ -92,25 +101,20 @@ const OurClasses = ({ setSelectedPage }: Props) => {
           }}
         >
           <div className="md:w-3/5">
-            <HText> OUR CLASSES</HText>
-            <p className="py-5">
-              Fringilla a sed at suspendisse ut enim volutpat. Rhoncus vel est
-              tellus quam porttitor. Mauris velit euismod elementum arcu neque
-              facilisi. Amet semper tortor facilisis metus nibh. Rhoncus sit
-              enim mattis odio in risus nunc.
-            </p>
+            <HText> {translate("OurClassesText")}</HText>
+            <p className="py-5">{translate("OurClassesDescription")}</p>
           </div>
         </motion.div>
         <div
           ref={containerRef}
-          className="mt-10 h-[370px] w-full overflow-x-auto overflow-y-hidden"
+          className="custom-scrollbar mt-10 h-[370px] w-full overflow-x-auto overflow-y-hidden"
         >
           <ul className="w-[2800px] whitespace-nowrap">
             {classes.map((item: ClassType, index) => (
               <Class
                 key={`${item.name}-${index}`}
-                name={item.name}
-                description={item.description}
+                name={translate(item.name)}
+                description={translate(item.description)}
                 image={item.image}
               />
             ))}

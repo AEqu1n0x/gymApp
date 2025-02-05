@@ -11,5 +11,26 @@ body,
   height: 100%;
   width: 100%;
   font-family: "DM Sans", sans-serif;
-  @apply text-gray-500;
+  @apply text-gray-500 dark:text-gray-100;
+}
+
+/* Стили для горизонтального srollbar`а*/
+@media (min-width: 1025px) {
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 8px; /* Высота */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: pink; /* Фон */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ffc132; /* Цвет ползунка */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #ff6b66; /* Цвет ползунка при наведении */
+  }
 }

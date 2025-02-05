@@ -1,5 +1,6 @@
 import { SelectedPage } from "@/shared/types";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Props = {
   page: string;
@@ -10,6 +11,8 @@ type Props = {
 const Link = ({ page, selectedPage, setSelectedPage }: Props) => {
   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
 
+  const { translate } = useTranslation();
+
   return (
     <AnchorLink
       href={`#${lowerCasePage}`}
@@ -18,7 +21,7 @@ const Link = ({ page, selectedPage, setSelectedPage }: Props) => {
       }}
       className={`${selectedPage === lowerCasePage ? "text-primary-500" : ""} transition duration-500 hover:text-primary-300`}
     >
-      {page}
+      {translate(page)}
     </AnchorLink>
   );
 };

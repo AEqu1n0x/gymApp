@@ -2,22 +2,28 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { SelectedPage } from "@/shared/types";
 import ActionButton from "@/shared/ActionButton";
 import HomePageText from "@/assets/HomePageText.png";
+import HomePageTextDark from "@/assets/HomePageTextDark.png";
 import HomePageGraphic from "@/assets/HomePageGraphic.png";
 import SponsorRedBull from "@/assets/SponsorRedBull.png";
 import SponsorForbes from "@/assets/SponsorForbes.png";
 import SponsorFortune from "@/assets/SponsorFortune.png";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
 };
 
 const Home = ({ setSelectedPage }: Props) => {
+  const { translate } = useTranslation();
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
 
   return (
-    <section id="home" className="gap-16 bg-gray-20 py-10 md:h-full md:pb-0">
+    <section
+      id="home"
+      className="dark:bg-darkGray-20 gap-16 bg-gray-20 py-10 md:h-full md:pb-0"
+    >
       {/* Картинка и заголовок */}
       <motion.div
         onViewportEnter={() => {
@@ -40,13 +46,20 @@ const Home = ({ setSelectedPage }: Props) => {
           >
             <div className="relative">
               <div className="before:absolute before:-left-20 before:-top-20 before:z-[-1] md:before:content-evolvetext">
-                <img alt="home-page-text" src={HomePageText} />
+                <img
+                  src={HomePageText}
+                  alt="logo"
+                  className="block dark:hidden"
+                />
+                <img
+                  src={HomePageTextDark}
+                  alt="logo"
+                  className="hidden dark:block"
+                />
               </div>
             </div>
             <p className="mt-8 text-sm md:text-start">
-              Unrivaled Gym. Unparalleled Training Fitness Classes. World Class
-              Studios to get the Body Shapes That you Dream of.. Get Your Dream
-              Body Now.
+              {translate("homeText")}
             </p>
           </motion.div>
           {/* Кнопки */}
@@ -62,7 +75,7 @@ const Home = ({ setSelectedPage }: Props) => {
             className="mt-8 flex items-center gap-8 md:justify-start"
           >
             <ActionButton setSelectedPage={setSelectedPage}>
-              Join now
+              {translate("joinNow")}
             </ActionButton>
             <AnchorLink
               className="text-sm font-bold text-primary-500 underline hover:text-secondary-500"
@@ -71,7 +84,7 @@ const Home = ({ setSelectedPage }: Props) => {
               }}
               href={`#${SelectedPage.ContactUs}`}
             >
-              <p>Learn more</p>
+              <p>{translate("learnMore")}</p>
             </AnchorLink>
           </motion.div>
         </div>
@@ -82,7 +95,7 @@ const Home = ({ setSelectedPage }: Props) => {
       </motion.div>
       {/* Спонсоры */}
       {isAboveMediumScreens && (
-        <div className="h-[150px] w-full bg-primary-100 py-10">
+        <div className="dark:bg-darkPrimary-100 h-[150px] w-full bg-primary-100 py-10">
           <div className="mx-auto w-5/6">
             <div className="flex items-center justify-evenly">
               <img alt="redbull" src={SponsorRedBull} />
